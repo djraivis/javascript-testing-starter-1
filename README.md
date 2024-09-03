@@ -14,6 +14,13 @@ This repository contains all of the examples and exercises for my JavaScript tes
 * Automate code quality checks with Husky to maintain high coding standards.
 
 
+## HOW TO RUN TESTS
+- `npm test` or `npm t`
+- `npm run test:ui`
+- `npm run coverage`
+
+
+
 You can find the full course at: 
 
 https://codewithmosh.com

@@ -26,33 +26,72 @@ export function calculateDiscount(price, discountCode) {
   return price - price * discount;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Exercise: Positive and negative testing
 export function validateUserInput(username, age) {
   let errors = [];
 
-  if (typeof username !== 'string' || username.length < 3) {
+  if (typeof username !== 'string' || username.length < 3 || username.length > 56) {
     errors.push('Invalid username');
   }
 
-  if (typeof age !== 'number' || age < 18) {
+  if (typeof age !== 'number' || age < 18 || age > 100) {
     errors.push('Invalid age');
   }
 
   return errors.length === 0 ? 'Validation successful' : errors.join(', ');
 }
 
+
+
+
+
+
+
+
 // Lesson: Boundary testing
 export function isPriceInRange(price, min, max) {
   return price >= min && price <= max;
 }
+
+
+
+
+
+
+
+
+
 
 // Exercise: Boundary testing
 export function isValidUsername(username) {
   const minLength = 5;
   const maxLength = 15;
 
+  if (username === null) return false
+
   return username.length >= minLength && username.length <= maxLength;
 }
+
+
+
+
+
+
 
 // Exercise: Boundary testing
 export function canDrive(age, countryCode) {
