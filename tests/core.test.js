@@ -1,10 +1,20 @@
-import { it, expect, describe, vitest } from 'vitest';
+import {
+  it,
+  expect,
+  describe,
+  beforeEach,
+  beforeAll,
+  afterEach,
+  afterAll,
+} from 'vitest';
 import {
   isValidUsername,
   isPriceInRange,
   validateUserInput,
   calculateDiscount,
   getCoupons,
+  canDrive,
+  fetchData,
 } from '../src/core';
 
 describe('getCoupons', () => {
@@ -93,14 +103,14 @@ describe('validateUserInput', () => {
 });
 
 describe('isPriceInRange', () => {
-  it('should return false when the price is outside the range', () => {
-    expect(isPriceInRange(-10, 0, 100)).toBe(false);
-    expect(isPriceInRange(200, 0, 100)).toBe(false);
-  });
-
-  it('should return true when the price is equal to min or to the max value', () => {
-    expect(isPriceInRange(0, 0, 100)).toBe(true);
-    expect(isPriceInRange(100, 0, 100)).toBe(true);
+  it.each([
+    { scenario: 'price < min', price: -10, result: false },
+    { scenario: 'price = min', price: 0, result: true },
+    { scenario: 'price between min and max', price: 55, result: true },
+    { scenario: 'price = max', price: 100, result: true },
+    { scenario: 'price > max', price: 200, result: false },
+  ])('should return $result for $price, $min, $max', ({ price, result }) => {
+    expect(isPriceInRange(price, 0, 100)).toBe(result);
   });
 });
 
@@ -116,7 +126,6 @@ describe('isValidUsername', function () {
   it('should return true if username is equal to min or max length', () => {
     expect(isValidUsername('a'.repeat(minLength || maxLength))).toBe(true);
   });
-
   it('should return true if username is within the length constraint', () => {
     expect(isValidUsername('a'.repeat(minLength + 1 || maxLength - 1))).toBe(
       true
@@ -125,8 +134,57 @@ describe('isValidUsername', function () {
 
   it('should return false if username is not a string', () => {
     expect(isValidUsername(1)).toBe(false);
-  });
-  it('should return false if username is an empty string', () => {
     expect(isValidUsername('')).toBe(false);
+    expect(isValidUsername(0)).toBe(false);
+    expect(isValidUsername(undefined)).toBe(false);
   });
+});
+
+describe('canDrive', () => {
+  it.each([
+    { age: 15, countryCode: 'US', result: false },
+    { age: 16, countryCode: 'US', result: true },
+    { age: 17, countryCode: 'US', result: true },
+    { age: 16, countryCode: 'UK', result: false },
+    { age: 17, countryCode: 'UK', result: true },
+    { age: 18, countryCode: 'UK', result: true },
+    { age: 18, countryCode: 'XX', result: 'Invalid country code' },
+  ])(
+    'should return $result for $age, $countryCode',
+    ({ age, countryCode, result }) => {
+      expect(canDrive(age, countryCode)).toBe(result);
+    }
+  );
+});
+
+// describe('fetchData', () => {
+//   it('should return a promise that will resolve to an array of numbers', async () => {
+//     try {
+//       await fetchData();
+//     } catch (error) {
+//       expect(error).toHaveProperty('reason');
+//       expect(error.reason).toMatch(/fail/i);
+//     }
+//   });
+// });
+
+describe('test suite', () => {
+  beforeAll(() => {
+    console.log('beforeAll Called');
+  });
+
+  beforeEach(() => {
+    console.log('beforeEach  Called');
+  });
+
+  afterEach(() => {
+    console.log('afterEach called');
+  });
+
+  afterAll(() => {
+    console.log('afterAll called');
+  });
+
+  it('test case 1', () => {});
+  it('test case 2', () => {});
 });

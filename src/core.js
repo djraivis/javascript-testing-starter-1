@@ -26,26 +26,15 @@ export function calculateDiscount(price, discountCode) {
   return price - price * discount;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Exercise: Positive and negative testing
 export function validateUserInput(username, age) {
   let errors = [];
 
-  if (typeof username !== 'string' || username.length < 3 || username.length > 56) {
+  if (
+    typeof username !== 'string' ||
+    username.length < 3 ||
+    username.length > 56
+  ) {
     errors.push('Invalid username');
   }
 
@@ -56,42 +45,20 @@ export function validateUserInput(username, age) {
   return errors.length === 0 ? 'Validation successful' : errors.join(', ');
 }
 
-
-
-
-
-
-
-
 // Lesson: Boundary testing
 export function isPriceInRange(price, min, max) {
   return price >= min && price <= max;
 }
-
-
-
-
-
-
-
-
-
 
 // Exercise: Boundary testing
 export function isValidUsername(username) {
   const minLength = 5;
   const maxLength = 15;
 
-  if (username === null) return false
+  if (!username) return false;
 
   return username.length >= minLength && username.length <= maxLength;
 }
-
-
-
-
-
-
 
 // Exercise: Boundary testing
 export function canDrive(age, countryCode) {
@@ -107,15 +74,16 @@ export function canDrive(age, countryCode) {
   return age >= legalDrivingAge[countryCode];
 }
 
-// Lesson: Testing asynchronous code
-export function fetchData() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const data = [1, 2, 3];
-      resolve(data);
-    });
-  });
-}
+// // Lesson: Testing asynchronous code
+// export function fetchData() {
+//   return Promise.reject({ reason: 'Operation Failed' });
+//   return new Promise((resolve) => {
+//     setTimeout(() => {
+//       const data = [1, 2, 3];
+//       resolve(data);
+//     });
+//   });
+// }
 
 // Lesson: Setup and teardown
 export class Stack {
