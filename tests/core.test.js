@@ -170,21 +170,36 @@ describe('canDrive', () => {
 
 describe('test suite', () => {
   beforeAll(() => {
-    console.log('beforeAll Called');
+    console.log('before all');
   });
 
   beforeEach(() => {
-    console.log('beforeEach  Called');
-  });
-
-  afterEach(() => {
-    console.log('afterEach called');
+    console.log('before each');
   });
 
   afterAll(() => {
-    console.log('afterAll called');
+    console.log('after all');
   });
 
   it('test case 1', () => {});
+
   it('test case 2', () => {});
+});
+
+describe('Stack', () => {
+  it('push should add an item to the stack', () => {
+    const stack = new Stack();
+    stack.push(1);
+    expect(stack.size()).toBe(1);
+  });
+
+  it('pop should remove an item from the stack', () => {
+    const stack = new Stack();
+    stack.push(1);
+    stack.push(2);
+
+    const popedItem = stack.pop();
+    expect(popedItem).toBe(2);
+    expect(stack.size()).toBe(1);
+  });
 });
